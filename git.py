@@ -5,7 +5,18 @@ Git 操作练习脚本
 
 import os
 import sys
+import logging
 from datetime import datetime
+
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    handlers=[
+        logging.FileHandler('file_manager.log', encoding='utf-8'),
+        logging.StreamHandler()
+    ]
+)
 
 
 def show_info():
@@ -32,12 +43,14 @@ def list_files(path="."):
 
 
 def main():
+    logging.info("脚本启动")
     print("=" * 40)
     print("🐍 Git 练习脚本 v1.0")
     print("=" * 40)
 
-    show_info()
+    files = show_info()
     list_files()
+    logging.info(f"共列出 {len(files)} 个文件")
 
     if len(sys.argv) > 1:
         path = sys.argv[1]
